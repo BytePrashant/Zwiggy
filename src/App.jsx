@@ -1,13 +1,22 @@
-import Body from "./components/Body";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Homepage from "./components/Homepage";
 import Navbar from "./components/Navbar";
+import Seeker from "./components/Seeker";
+import Referral from "./components/Referral";
 
 function App() {
-  return(
+  return (
     <>
-     <Navbar/>
-     <Body/>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/seeker" element={<Seeker/>}></Route>
+          <Route path="/referral" element={<Referral/>}></Route>
+        </Routes>
+      </Router>
     </>
-  )
+  );
 }
 
 export default App;
