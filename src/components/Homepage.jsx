@@ -4,7 +4,7 @@ import { Swiggy_Restaurant_API } from "../utils/constant";
 import Skeleton from "./Skeleton";
 
 const Homepage = () => {
-  const [list, setList] = useState([]);
+  const [restaurantsList, setRestaurantsList] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -13,13 +13,13 @@ const Homepage = () => {
   const fetchData = async () => {
     const data = await fetch(`${Swiggy_Restaurant_API}`);
     const jsonData = await data.json();
-    setList(
+    setRestaurantsList(
       jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
   };
-
-  if (list.length === 0) {
+  console.log("****")
+  if (restaurantsList.length === 0) {  //<- this right here is condition rendering we are passing condition to render
     let skeleton = [];
     for(var i=0; i<20; i++){
        skeleton.push(<Skeleton key={i} />);
@@ -40,15 +40,15 @@ const Homepage = () => {
           <button
             className="filter-btn"
             onClick={() => {
-              const filtered = list.filter((item) => item.info.avgRating >= 4);
-              setList(filtered);
+              const filtered = restaurantsList.filter((item) => item.info.avgRating >= 4);
+              setRestaurantsList(filtered);
             }}
           >
             Top rated restaurant
           </button>
         </div>
         <div className="flex flex-wrap justify-start gap-4">
-          {list.map((items) => (
+          {restaurantsList.map((items) => (
             <RestaurantCard key={items.info.id} resData={items.info} />
           ))}
         </div>
