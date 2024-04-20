@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Homepage from "./components/Homepage";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import RestaurantMenu from "./components/RestaurantMenu";
 
-function App() {
+function AppLayout() {
   return (
     <div>
       <Navbar />
@@ -14,10 +14,10 @@ function App() {
   );
 }
 
-const appRouter = createBrowserRouter([
+const AppRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <AppLayout />,
     children: [
       {
         path: "/",
@@ -31,8 +31,12 @@ const appRouter = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
+      {
+        path: "/restaurants/:resId",
+        element: <RestaurantMenu />,
+      },
     ],
   },
 ]);
 
-export default appRouter;
+export default AppRouter;
