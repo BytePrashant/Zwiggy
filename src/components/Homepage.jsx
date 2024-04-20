@@ -1,6 +1,6 @@
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
-import { Swiggy_Restaurant_API } from "../utils/constant";
+import { SWIGGY_RESTAURANT_API } from "../utils/constant";
 import Skeleton from "./Skeleton";
 
 const Homepage = () => {
@@ -13,7 +13,7 @@ const Homepage = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(`${Swiggy_Restaurant_API}`);
+    const data = await fetch(`${SWIGGY_RESTAURANT_API}`);
     const jsonData = await data.json();
     setRestaurantsList(
       jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
