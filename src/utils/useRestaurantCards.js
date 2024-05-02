@@ -15,14 +15,13 @@ const useRestaurantCards = () => {
       jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
-
     setFilteredResList(
       jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
   };
 
-  return {restaurantList, filteredResList};
+  return {restaurantList, filteredResList, setFilteredResList};
 };
 
 export default useRestaurantCards;
