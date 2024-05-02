@@ -1,31 +1,17 @@
 import RestaurantCard from "./RestaurantCard";
-import { useState, useEffect } from "react";
-import { SWIGGY_RESTAURANT_API } from "../utils/constant";
+import { useState } from "react";
 import Skeleton from "./Skeleton";
+import useRestaurantCards from "../utils/useRestaurantCards";
 
 const Homepage = () => {
-  const [restaurantsList, setRestaurantsList] = useState([]);
+  // State variables
   const [searchText, setSearchText] = useState("");
-  const [filteredRes, setFilteredRes] = useState([]);
+  const [isSorted, setIsSorted] = useState(false);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // Custom Hooks
+  const {restaurantList, filteredResList, setFilteredResList} = useRestaurantCards();
 
-  const fetchData = async () => {
-    const data = await fetch(`${SWIGGY_RESTAURANT_API}`);
-    const jsonData = await data.json();
-    setRestaurantsList(
-      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-
-    setFilteredRes(
-      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-  };
-  if (restaurantsList.length === 0) {
+  if (restaurantList.length === 0) {
     let skeleton = [];
     for (var i = 0; i < 20; i++) {
       skeleton.push(<Skeleton key={i} />);
@@ -36,6 +22,27 @@ const Homepage = () => {
       </div>
     );
   }
+
+  // search logic
+  const handleSearch = () => {
+    const filteredSearch = restaurantList.filter((res) => {
+      return res.info.name.toLowerCase().includes(searchText.toLowerCase());
+    });
+    setFilteredResList(filteredSearch);
+  };
+
+  // Top rated filter logic
+  const handleTopRated = () => {
+    if(isSorted) {
+      const topRated = [...restaurantList].sort(
+        (a, b) => b.info.avgRating - a.info.avgRating
+      );
+      setFilteredResList(topRated);
+    } else {
+      setFilteredResList(restaurantList);
+    }
+    setIsSorted(!isSorted);
+  };
 
   return (
     <div>
@@ -50,43 +57,19 @@ const Homepage = () => {
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                const filtered = restaurantsList.filter((res) => {
-                  return res.info.name
-                    .toLowerCase()
-                    .includes(searchText.toLowerCase());
-                });
-                setFilteredRes(filtered);
+                handleSearch();
               }
             }}
           />
-          <button
-            onClick={() => {
-              const filtered = restaurantsList.filter((res) => {
-                return res.info.name
-                  .toLowerCase()
-                  .includes(searchText.toLowerCase());
-              });
-              setFilteredRes(filtered);
-            }}
-          >
-            Search
-          </button>
+          <button onClick={handleSearch}>Search</button>
         </div>
         <div className="border-2 my-2 inline-block px-2 py-1">
-          <button
-            className="filter-btn"
-            onClick={() => {
-              const filtered = restaurantsList.filter(
-                (item) => item.info.avgRating >= 4
-              );
-              setRestaurantsList(filtered);
-            }}
-          >
+          <button className="filter-btn" onClick={handleTopRated}>
             Top rated restaurant
           </button>
         </div>
         <div className="flex flex-wrap justify-start gap-4">
-          {filteredRes.map((items) => (
+          {filteredResList.map((items) => (
             <RestaurantCard key={items.info.id} resData={items.info} />
           ))}
         </div>
