@@ -1,21 +1,12 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { RESTAURANT_MENU_API } from "../utils/constant";
 import Skeleton from "./Skeleton";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
-  const {resId} = useParams();
-  
-  useEffect(() => {
-    fetchMenu();
-  }, []);
 
-  const fetchMenu = async () => {
-    const data = await fetch(RESTAURANT_MENU_API + resId);
-    const jsonData = await data.json();
-    setResInfo(jsonData?.data);
-  };
+  const {resId} = useParams();
+
+  const resInfo = useRestaurantMenu(resId);
 
   if(resInfo === null) return <Skeleton />
 
