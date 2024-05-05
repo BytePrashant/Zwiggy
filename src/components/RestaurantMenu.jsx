@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Skeleton from "./Skeleton";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
-import ItemCategory from "./ItemCategory";
+import MenuCategory from "./MenuCategory";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -50,7 +50,7 @@ const RestaurantMenu = () => {
         <p className="text-lg font-normal mb-4 text-center my-8">M E N U</p>
         {/* accordian for categories */}
         {itemCategory.map((item) => (
-          <ItemCategory key={item?.card?.card.title} data={item?.card?.card} />
+          <MenuCategory key={item?.card?.card.title} data={item?.card?.card} />
         ))}
       </div>
     </>
