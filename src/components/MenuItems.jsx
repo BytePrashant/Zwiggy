@@ -10,7 +10,7 @@ const MenuItems = ({ item }) => {
         >
           <div className="w-9/12">
             <div className="py-2">
-              <span>{dish.card?.info?.name}</span>
+              <span className="font-bold text-lg">{dish.card?.info?.name}</span>
               {" - "}
               <span>
                 ₹
@@ -18,14 +18,14 @@ const MenuItems = ({ item }) => {
                   ? dish.card?.info.price / 100
                   : dish.card?.info.defaultPrice / 100}
               </span>
+              <p className="mt-4 font-light text-sm truncate">
+                {dish.card?.info?.description}
+              </p>
             </div>
-            <p className="mt-2 font-light text-sm">
-              {dish.card?.info?.description}
-            </p>
           </div>
           <div className="relative w-3/12 p-4">
             <div className="absolute bottom-0 left-0 right-0 flex justify-center">
-              <button className="py-1 px-4 bg-black text-white rounded-lg">
+              <button className="font-semibold py-1 px-4 bg-black text-white rounded-lg">
                 Add
               </button>
             </div>

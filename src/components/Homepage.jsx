@@ -11,6 +11,7 @@ const Homepage = () => {
   // Custom Hooks
   const {restaurantList, filteredResList, setFilteredResList} = useRestaurantCards();
 
+  // Shimmer UI
   if (restaurantList.length === 0) {
     let skeleton = [];
     for (var i = 0; i < 20; i++) {

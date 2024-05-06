@@ -9,7 +9,7 @@ const Navbar = () => {
           <img
             src={LOGO_URL}
             className="h-8"
-            alt="Flowbite Logo"
+            alt="Zwiggy Logo"
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             Zwiggy

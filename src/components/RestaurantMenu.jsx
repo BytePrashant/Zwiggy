@@ -2,11 +2,12 @@ import { useParams } from "react-router-dom";
 import Skeleton from "./Skeleton";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import MenuCategory from "./MenuCategory";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-
   const resInfo = useRestaurantMenu(resId);
+  const [showIndex, setShowIndex] = useState(0);
 
   if (resInfo === null) return <Skeleton />;
 
@@ -49,8 +50,15 @@ const RestaurantMenu = () => {
         </div>
         <p className="text-lg font-normal mb-4 text-center my-8">M E N U</p>
         {/* accordian for categories */}
-        {itemCategory.map((item) => (
-          <MenuCategory key={item?.card?.card.title} data={item?.card?.card} />
+        {itemCategory.map((item, index) => (
+          <MenuCategory
+            key={item?.card?.card.title}
+            data={item?.card?.card}
+            showCategory={index === showIndex ? true : false}
+            setCategory={() => {
+              setShowIndex(index);
+            }}
+          />
         ))}
       </div>
     </>
