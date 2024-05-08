@@ -4,13 +4,17 @@ import Homepage from "./components/Homepage";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
+import { Provider } from "react-redux";
+import reduxStore from "./utils/reduxStore";
 
 function AppLayout() {
   return (
-    <div>
-      <Navbar />
-      <Outlet />
-    </div>
+    <Provider store={reduxStore}>
+      <div>
+        <Navbar />
+        <Outlet />
+      </div>
+    </Provider>
   );
 }
 
