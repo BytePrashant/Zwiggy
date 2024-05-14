@@ -1,6 +1,14 @@
+import { useDispatch } from "react-redux";
+import { addItems, removeItem, clearCart } from "../utils/cartSlice";
 import { CDN_URL } from "../utils/constant";
 
 const MenuItems = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleCart = () => {
+    dispatch(addItems("pizza"));
+  };
+
   return (
     <>
       {item.map((dish) => (
@@ -25,7 +33,10 @@ const MenuItems = ({ item }) => {
           </div>
           <div className="relative w-3/12 p-4">
             <div className="absolute bottom-0 left-0 right-0 flex justify-center">
-              <button className="font-semibold py-1 px-4 bg-black text-white rounded-lg">
+              <button
+                className="font-semibold py-1 px-4 bg-black text-white rounded-lg"
+                onClick={handleCart}
+              >
                 Add
               </button>
             </div>

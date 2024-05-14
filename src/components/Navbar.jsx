@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { LOGO_URL } from "../utils/constant";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+
+  const cartItems = useSelector((store)=>store.cart.items);
+
   return (
     <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -65,6 +69,11 @@ const Navbar = () => {
             <li>
               <Link to={'/contact'} className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500">
               Contact
+              </Link>
+            </li>
+            <li>
+              <Link to={'/contact'} className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500">
+              Cart ({cartItems.length})
               </Link>
             </li>
           </ul>
